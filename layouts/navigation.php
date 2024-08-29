@@ -4,21 +4,21 @@
 
 $tags = getKategori();
 
-if (isset($_GET['cari'])) {
-    $cari = $_GET['cari'];
+// if (isset($_GET['cari'])) {
+//     $cari = $_GET['cari'];
 
-    if (empty(trim($_GET['cari']))) {
-        $error = 'Kotak pencarian belum diisi';
-    } else {
-        $articles = search($cari);
-    }
-}
-?>
+//     if (empty(trim($_GET['cari']))) {
+//         $error = 'Kotak pencarian belum diisi';
+//     } else {
+//         $articles = search($cari);
+//     }
+// }
+// ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="<?php echo $base_url; ?>dashboard/index.php">
         <img src="../assets/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        Nizar News
+        Nizarae News
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

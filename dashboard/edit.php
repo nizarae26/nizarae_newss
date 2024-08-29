@@ -31,13 +31,19 @@ if (isset($_POST['submit'])) {
     $data['nama_file'] = $_FILES['gambar']['name'];
     $tmp_file = $_FILES['gambar']['tmp_name'];
 
+    // Jika gambar tidak diupload, gunakan gambar yang sudah ada
+    if (empty($data['nama_file'])) {
+        $data['nama_file'] = $item->image;
+    }
+
     if (!empty(trim($data['judul'])) && !empty(trim($data['konten']))) {
         if (strlen($data['judul']) >= 6 && strlen($data['konten']) >= 10) {
             if (update($data, $id)) {
-                if (!empty($data['nama_file']) && $data['nama_file'] != $item->image) {
+                // Jika gambar baru diunggah, hapus gambar lama dan simpan yang baru
+                if (!empty($_FILES['gambar']['name']) && $_FILES['gambar']['name'] != $item->image) {
                     $path = '../assets/images/' . $data['nama_file'];
-                    unlink('../assets/images/' . $item->image);
-                    move_uploaded_file($tmp_file, $path);
+                    unlink('../assets/images/' . $item->image); // Hapus gambar lama
+                    move_uploaded_file($tmp_file, $path); // Simpan gambar baru
                 }
 
                 header('Location: index.php');
@@ -52,6 +58,7 @@ if (isset($_POST['submit'])) {
         $error = 'Judul dan Konten tidak boleh kosong!';
     }
 }
+
 
 ?>
 
@@ -115,6 +122,12 @@ if (isset($_POST['submit'])) {
                             <div class="form-group">
                                 <label for="gambar">Gambar</label>
                                 <input type="file" class="form-control" name="gambar" id="gambar">
+                                <?php if (!empty($item->image)) { ?>
+                                    <div class="mt-3">
+                                        <label>Gambar Saat Ini:</label><br>
+                                        <img src="../assets/images/<?php echo $item->image; ?>" alt="Gambar Artikel" width="200">
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
 

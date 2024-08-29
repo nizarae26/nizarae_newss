@@ -71,6 +71,9 @@ if (isset($_POST['submit'])) {
                         <form method="POST" action="">
 
                             <div class="form-group">
+                                <input id="fullname" type="text" placeholder="Nama Lengkap" class="form-control" name="fullname" required autofocus>
+                            </div>
+                            <div class="form-group">
                                 <input id="name" type="text" placeholder="Nama" class="form-control" name="name" required autofocus>
                             </div>
 
