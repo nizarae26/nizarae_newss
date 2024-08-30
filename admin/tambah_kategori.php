@@ -1,16 +1,11 @@
 <?php
-
 require_once '../config/init.php';
 
-if (!isset($_SESSION['email'])) {
-    header('Location: ../admin/index.php');
-} else {
-    if ($user->role != 1) {
-        header('Location: ../dashboard/index.php');
-    }
+// Periksa apakah user sudah login dan memiliki hak akses
+if (!isset($_SESSION['email']) || $user->role != 1) {
+    header('Location: ../dashboard/index.php');
+    exit();
 }
-
-$error = '';
 
 if (isset($_POST['submit'])) {
     $data['keterangan'] = $_POST['keterangan'];
@@ -18,7 +13,7 @@ if (isset($_POST['submit'])) {
     if (!empty(trim($data['keterangan']))) {
         if (strlen($data['keterangan']) >= 4) {
             if (createKategori($data)) {
-                header('Location: index.php');
+                header('Location: master_kategori.php');
             } else {
                 $error = 'Ada masalah saat menambah data!';
             }
@@ -32,6 +27,7 @@ if (isset($_POST['submit'])) {
 
 ?>
 
+
 <!doctype html>
 <html>
 
@@ -39,22 +35,28 @@ if (isset($_POST['submit'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nizarae News</title>
-
+    <title>Kelola Kategori</title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
 </head>
 
 <body>
-
-    <?php require_once '../layouts/navigation.php'; ?>
+<?php require_once '../layouts/navigationadmin.php'; ?>
 
     <div class="container-fluid">
         <div class="row pt-4">
-            <div class="col-md-9 col-xs-12 pl-4">
+            <div class="col-md-3 col-xs-12">
+                <div class="list-group">
+                    <a href="index.php" class="list-group-item list-group-item-action">Master Data</a>
+                    <a href="data_user.php" class="list-group-item list-group-item-action">Data User</a>
+                    <a href="data_artikel.php" class="list-group-item list-group-item-action">Data Artikel</a>
+                    <a href="master_kategori.php" class="list-group-item list-group-item-action active">Kelola Kategori</a>
+                </div>
+            </div>
+            <div class="col-md-9 col-xs-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Tambahkan Kategori
+                        Tambah Kategori
                     </div>
 
                     <form action="" method="post">
@@ -70,27 +72,28 @@ if (isset($_POST['submit'])) {
                             <?php } ?>
 
                             <div class="form-group">
-                                <label for="keterangan">Keterangan</label>
-                                <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Keterangan">
+                                <label for="keterangan">Nama Kategori</label>
+                                <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan Nama Kategori">
                             </div>
 
                         </div>
 
                         <div class="card-footer text-muted text-center">
                             <button type="submit" name="submit" class="btn btn-primary">Tambahkan</button>
-                            <a href="index.php" class="btn btn-danger">Batal</a>
+                            <a href="master_kategori.php" class="btn btn-danger">Batal</a>
                         </div>
                     </form>
+
+
                 </div>
             </div>
-
-            <?php require_once '../layouts/sidebar.php'; ?>
         </div>
     </div>
+    </div>
+    </div>
 
+    <script src="../assets/jquery/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
-
-<script src="../assets/jquery/jquery.min.js"></script>
-<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 
 </html>

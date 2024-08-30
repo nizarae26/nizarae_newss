@@ -8,11 +8,12 @@ if (isset($_SESSION['email'])) {
 }
 
 if (isset($_POST['submit'])) {
+    $data['fullname'] = $_POST['fullname'];
     $data['nama'] = $_POST['name'];
     $data['email'] = $_POST['email'];
     $data['password'] = $_POST['password'];
 
-    if (!empty(trim($data['nama'])) && !empty(trim($data['email'])) && !empty(trim($data['password']))) {
+    if (!empty(trim($data['fullname'])) && !empty(trim($data['nama'])) && !empty(trim($data['email'])) && !empty(trim($data['password']))) {
         if (strlen($data['nama']) >= 3 && strlen($data['email']) >= 6 && strlen($data['password']) >= 8) {
             if (register($data)) {
                 $_SESSION['email'] = $data['email'];
@@ -71,18 +72,23 @@ if (isset($_POST['submit'])) {
                         <form method="POST" action="">
 
                             <div class="form-group">
-                                <input id="fullname" type="text" placeholder="Nama Lengkap" class="form-control" name="fullname" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <input id="name" type="text" placeholder="Nama" class="form-control" name="name" required autofocus>
+                                <p2>Fullname</p2>
+                                <input id="fullname" type="text" placeholder="Masukkan Nama Lengkap" class="form-control" name="fullname" required autofocus style="margin-top: 1%;">
                             </div>
 
                             <div class="form-group">
-                                <input id="email" type="email" placeholder="Email" class="form-control" name="email" required>
+                                <p2>Nama</p2>
+                                <input id="name" type="text" placeholder="Masukkan Nama" class="form-control" name="name" required autofocus style="margin-top: 1%;">
                             </div>
 
                             <div class="form-group">
-                                <input id="password" type="password" placeholder="Password" class="form-control" name="password" required>
+                                <p2>Email</p2>
+                                <input id="email" type="email" placeholder="Masukkkan Email" class="form-control" name="email" required style="margin-top: 1%;">
+                            </div>
+                            
+                            <div class="form-group">
+                                <p2>Password</p2>
+                                <input id="password" type="password" placeholder="Masukkan Password" class="form-control" name="password" required style="margin-top: 1%;">
                             </div>
 
                             <div class="form-group">

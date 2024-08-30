@@ -1,12 +1,13 @@
 <?php
     
     function register($data){
+        $fullname = escape($data['fullname']);
         $nama = escape($data['nama']);
         $email = escape($data['email']);
         $password = escape($data['password']);
         $password = md5($password);
 
-        $query = "INSERT INTO users (name, email, password, role) VALUES ('$nama', '$email', '$password', 0)";
+        $query = "INSERT INTO users (fullname, name, email, password, role) VALUES ('$fullname', '$nama', '$email', '$password', 0)";
         return run($query);
     } 
 

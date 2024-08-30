@@ -7,7 +7,9 @@ if (!isset($_SESSION['email'])) {
 }
 
 $error = '';
-$kategori = getKategori();
+// $kategori = getKategori();
+
+
 
 if (isset($_POST['submit'])) {
     $data['user_id'] = $user->id;
@@ -86,11 +88,11 @@ if (isset($_POST['submit'])) {
                                 <label for="judul">Judul Artikel</label>
                                 <input type="text" name="judul" class="form-control" id="judul" placeholder="Judul">
                             </div>
-
                             <div class="form-group">
                                 <label for="kategori">Kategori Artikel</label>
                                 <select class="form-control" name="kategori" id="kategori">
                                     <option>--- PILIH ---</option>
+                                    <?php $kategori = getKategori(); ?>
                                     <?php while ($item = mysqli_fetch_object($kategori)) { ?>
                                         <option value="<?php echo $item->id; ?>"><?php echo $item->keterangan; ?></option>
                                     <?php } ?>
@@ -104,7 +106,20 @@ if (isset($_POST['submit'])) {
 
                             <div class="form-group">
                                 <label for="gambar">Foto</label>
-                                <input type="file" class="form-control" name="gambar" id="gambar">
+                                <input type="file" class="form-control" name="gambar" id="gambar" onchange="previewImage(event)">
+                                <br>
+                                <img id="preview" src="#" alt="Preview Gambar" style="display:none; max-width: 200px; max-height: 200px;" />
+                                <script>
+                                    function previewImage(event) {
+                                        var reader = new FileReader();
+                                        reader.onload = function() {
+                                            var output = document.getElementById('preview');
+                                            output.src = reader.result;
+                                            output.style.display = 'block';
+                                        }
+                                        reader.readAsDataURL(event.target.files[0]);
+                                    }
+                                </script>
                             </div>
                         </div>
 

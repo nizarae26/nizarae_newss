@@ -23,13 +23,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Nizar News</title>
-
         <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="../assets/css/custom.css">
     </head>
     <body>
         
-        <?php require_once '../layouts/navigation.php'; ?>
+        <?php include '../layouts/navigation.php'; ?>
 
         <div class="container-fluid">
           <div class="row pt-4">
@@ -86,4 +85,5 @@
     
     <script src="../assets/jquery/jquery.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    
 </html>

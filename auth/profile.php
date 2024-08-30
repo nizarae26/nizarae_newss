@@ -39,19 +39,19 @@ $profile = mysqli_fetch_object(get_user($_SESSION['email']));
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                Email: <?php echo $profile->email; ?>
+                                Email : <?php echo $profile->email; ?>
                             </li>
 
                             <li class="list-group-item">
-                                Nama Lengkap: <?php echo $profile->name; ?>
+                                Nama Lengkap : <?php echo $profile->fullname; ?>
                             </li>
 
                             <li class="list-group-item">
-                                Role: <?php echo ($profile->role > 0) ? 'Administrator' : 'Member'; ?>
+                                Role : <?php echo ($profile->role > 0) ? 'Administrator' : 'Member'; ?>
                             </li>
 
                             <li class="list-group-item">
-                                Bergabung Pada: <?php echo $profile->created_at; ?>
+                                Bergabung Pada : <?php echo $profile->created_at; ?>
                             </li>
                         </ul>
                     </div>

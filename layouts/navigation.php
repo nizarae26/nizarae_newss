@@ -2,7 +2,7 @@
 // require_once 'config/init.php';
 // $errors = '';
 
-$tags = getKategori();
+$kategori = getKategori();
 
 // if (isset($_GET['cari'])) {
 //     $cari = $_GET['cari'];
@@ -13,7 +13,20 @@ $tags = getKategori();
 //         $articles = search($cari);
 //     }
 // }
-// ?>
+// 
+?>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="<?php echo $base_url; ?>dashboard/index.php">
@@ -27,12 +40,59 @@ $tags = getKategori();
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <!-- <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li> -->
+            <!-- Menu lainnya -->
+            <?php if (isset($_SESSION['email'])) { ?>
+                <?php if ($user->role == 0) { ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Artikel
+                        </a>
+                    <?php } ?>
+                <?php } ?>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <!-- <a class="dropdown-item" href="dashboard/index.php">Artikel</a> -->
+                    <a class="dropdown-item" href="<?php echo $base_url; ?>dashboard/create.php">Terbitkan Artikel</a>
+                </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Kategori
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php while ($item = mysqli_fetch_object($kategori)) { ?>
+                                <a class="dropdown-item" href="<?php echo $base_url; ?>dashboard/bykategori.php?id=<?php echo $item->id; ?>"><?php echo $item->keterangan; ?></a>
+                            <?php } ?>
+
+                        </div>
+                    </li>
+                    <?php if (isset($_SESSION['email'])) { ?>
+                        <?php if ($user->role == 0) { ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown" role="button" href="<?php echo $base_url; ?>kategori/create.php">Tambah Kategori
+                        </a>
+                        <?php } ?>
+                        <?php } ?>
+
+                    </li>
+                    <?php if (isset($_SESSION['email'])) { ?>
+                        <?php if ($user->role == 1) { ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Master
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="<?php echo $base_url; ?>kategori/index.php">Kategori</a>
+                                    <a class="dropdown-item" href="<?php echo $base_url; ?>kategori/create.php">Tambah Kategori</a>
+                                </div>
+                            </li>
+                        <?php } ?>
+                    <?php } ?>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php
@@ -44,7 +104,7 @@ $tags = getKategori();
                     ?>
                 </a>
 
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <?php if (isset($_SESSION['email'])) { ?>
                         <a class="dropdown-item" href="<?php echo $base_url; ?>auth/profile.php">My Profile</a>
                         <a class="dropdown-item" href="<?php echo $base_url; ?>auth/logout.php">Logout</a>
@@ -55,52 +115,6 @@ $tags = getKategori();
                 </div>
             </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Artikel
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?php echo $base_url; ?>dashboard/index.php">Artikel</a>
-                    <a class="dropdown-item" href="<?php echo $base_url; ?>dashboard/create.php">Terbitkan Artikel</a>
-                    <!-- <div class="dropdown-divider"></div> -->
-                    <!-- <a class="dropdown-item" href="#">Something else here</a> -->
-                </div>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Kategori
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <?php while ($tag = mysqli_fetch_object($tags)) { ?>
-                        <a class="dropdown-item" href="<?php echo $base_url; ?>dashboard/bykategori.php?id=<?php echo $tag->id; ?>"><?php echo $tag->keterangan; ?></a>
-                    <?php } ?>
-                </div>
-            </li>
-
-            <?php if (isset($_SESSION['email'])) { ?>
-                <?php if ($user->role == 1) { ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Master 
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="<?php echo $base_url; ?>kategori/index.php">Kategori</a>
-                            <a class="dropdown-item" href="<?php echo $base_url; ?>kategori/create.php">Tambah Kategori</a>
-                        </div>
-                    </li>
-                <?php } ?>
-            <?php } ?>
-            <!-- <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li> -->
         </ul>
-        <!-- <form action="../dashboard/index.php" method="get" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" name="cari" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-        </form> -->
     </div>
 </nav>

@@ -1,8 +1,8 @@
 <?php
 
     require_once '../config/init.php';
-    $newArticles = new_article(5);
-    $favoriteArticles = favorite(5);
+    $artikelBaru = artikel_Baru(5);
+    // $favoriteArticles = favorite(5);
 ?>
 
 <div class="col-md-3 col-xs-12">
@@ -12,7 +12,7 @@
         </div>
 
         <div class="list-group">
-            <?php while($item = mysqli_fetch_object($newArticles)) { ?>
+            <?php while($item = mysqli_fetch_object($artikelBaru)) { ?>
                 <a href="show.php?id=<?php echo $item->id; ?>" class="list-group-item list-group-item-action flex-column">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="row">
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="card mb-5">
+    <!-- <div class="card mb-5">
         <div class="card-header text-center">
             <h6 class="card-title">Berita Terpopuler:</h6>
         </div>
@@ -70,5 +70,5 @@
                 </a>
             <?php } ?>
         </div>
-    </div>
+    </div> -->
 </div>

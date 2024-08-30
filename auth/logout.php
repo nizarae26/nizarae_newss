@@ -10,4 +10,4 @@ if (isset($_SESSION['email'])) {
 unset($_SESSION['nama']);
 session_destroy();
 
-header('Location: login.php');
+header('Location: ../dashboard/index.php');

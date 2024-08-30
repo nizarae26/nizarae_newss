@@ -86,7 +86,20 @@ if (isset($_POST['submit'])) {
                     <div class="card-header text-center">
                         Sunting Artikel
                     </div>
+                    <?php if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $article = find($id);
 
+                        $item = mysqli_fetch_object($article);
+
+                        if ($user->role == 0) {
+                            if ($item->user_id != $user->id) {
+                                header('Location: ../dashboard/index.php');
+                            }
+                        }
+                    } else {
+                        header('Location: index.php');
+                    } ?>
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="card-body">
                             <?php if (!empty($error)) { ?>
@@ -103,7 +116,7 @@ if (isset($_POST['submit'])) {
                                 <label for="judul">Judul</label>
                                 <input type="text" name="judul" class="form-control" id="judul" value="<?php echo $item->judul; ?>">
                             </div>
-
+                            <?php $kategori = getKategori(); ?>
                             <div class="form-group">
                                 <label for="kategori">Kategori Artikel</label>
                                 <select class="form-control" name="kategori" id="kategori" value="<?php echo $item->kategori_id; ?>">

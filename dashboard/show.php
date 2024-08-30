@@ -3,38 +3,6 @@
 require_once '../config/init.php';
 $error = '';
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $article = find($id);
-    // $komentar = getKomentar($id);
-
-    $item = mysqli_fetch_object($article);
-
-    reading($id);
-}
-
-// if (isset($_POST['submit'])) {
-//     if (!isset($_SESSION['email'])) {
-//         $error = 'Login dahulu untuk berkomentar!';
-//     }
-
-//     $data['user_id'] = $user->id;
-//     $data['artikel_id'] = $item->id;
-//     $data['keterangan'] = $_POST['keterangan'];
-
-//     if (!empty(trim($data['keterangan']))) {
-//         if (strlen($data['keterangan']) >= 4) {
-//             if (createKomentar($data)) {
-//                 header('Refresh: 0');
-//             } else {
-//                 $error = 'Ada masalah saat berkomentar!';
-//             }
-//         } else {
-//             $error = 'Komentar minimal 4 karakter!';
-//         }
-//     } else {
-//         $error = 'Komentar tidak boleh kosong!';
-//     }
 
 
 ?>
@@ -61,6 +29,23 @@ if (isset($_GET['id'])) {
             <div class="col-md-9 col-xs-12 px-5">
                 <div class="card mb-3">
 
+                    <?php if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $article = find($id);
+
+                        if ($article) {
+                            $item = mysqli_fetch_object($article);
+
+                            if ($item) {
+                                reading($id);
+                            } else {
+                                die('Artikel tidak ditemukan');
+                            }
+                        } else {
+                            die('Query gagal atau artikel tidak ditemukan');
+                        }
+                    }
+                    ?>
                     <?php if (!empty($item->image)) { ?>
                         <img class="card-img-top" src="../assets/images/<?php echo $item->image; ?>" alt="Card image cap">
                     <?php } ?>
@@ -71,9 +56,8 @@ if (isset($_GET['id'])) {
                             <?php echo nl2br($item->konten); ?>
                         </p>
                     </div>
-
                     <?php if (isset($_SESSION['email'])) { ?>
-                        <?php if ($item->user_id == $user->id || $user->role == 1) { ?>
+                        <?php if ($item->user_id == $user->id || $user->role == 0) { ?>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <a href="edit.php?id=<?php echo $item->id; ?>" class="card-link">Sunting</a>
@@ -128,7 +112,7 @@ if (isset($_GET['id'])) {
                     </form>
                 </div> -->
 
-              
+
             </div>
 
             <?php require_once '../layouts/sidebar.php'; ?>

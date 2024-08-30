@@ -15,7 +15,13 @@ if (isset($_POST['submit'])) {
         if (strlen($data['email']) >= 6 && strlen($data['password']) >= 8) {
             if (login($data)) {
                 $_SESSION['email'] = $data['email'];
-                header('Location: ../dashboard/index.php');
+                if ($_SESSION['role'] == 1) {
+                    header('Location: ../dashboard/index.php');
+                    # code...
+                }else {
+                    header('Location: ../admin/index.php');
+                    # code...
+                }
             } else {
                 $error = 'Login gagal!';
             }
@@ -69,11 +75,13 @@ if (isset($_POST['submit'])) {
                         <form method="POST" action="">
 
                             <div class="form-group">
-                                <input id="email" type="email" placeholder="Email" class="form-control" name="email" required autofocus>
+                                <p2>Email</p2>
+                                <input id="email" type="email" placeholder="Masukkan Email Anda" class="form-control" name="email" required autofocus style="margin-top: 1%;">
                             </div>
-
+                            
                             <div class="form-group">
-                                <input id="password" type="password" placeholder="Password" class="form-control" name="password" required>
+                                <p2>Password</p2>
+                                <input id="password" type="password" placeholder="Masukkan Password Anda" class="form-control" name="password" required style="margin-top: 1%;">
                             </div>
 
                             <div class="form-group">

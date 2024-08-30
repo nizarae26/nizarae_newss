@@ -10,15 +10,15 @@
         return result($query);
     }
 
-    function new_article($limit){
+    function artikel_Baru($limit){
         $query  = "SELECT artikel.id, artikel.judul, artikel.konten, artikel.image, artikel.created_at, users.name, kategori.keterangan AS kategori FROM artikel INNER JOIN users ON artikel.user_id = users.id LEFT JOIN kategori ON artikel.kategori_id = kategori.id ORDER BY artikel.created_at DESC LIMIT $limit";
         return result($query);
     }
 
-    function favorite($limit){
-        $query  = "SELECT artikel.id, artikel.judul, artikel.konten, artikel.image, artikel.created_at, users.name, kategori.keterangan AS kategori FROM artikel INNER JOIN users ON artikel.user_id = users.id LEFT JOIN kategori ON artikel.kategori_id = kategori.id ORDER BY artikel.reader DESC LIMIT $limit";
-        return result($query);
-    }
+    // function favorite($limit){
+    //     $query  = "SELECT artikel.id, artikel.judul, artikel.konten, artikel.image, artikel.created_at, users.name, kategori.keterangan AS kategori FROM artikel INNER JOIN users ON artikel.user_id = users.id LEFT JOIN kategori ON artikel.kategori_id = kategori.id ORDER BY artikel.reader DESC LIMIT $limit";
+    //     return result($query);
+    // }
 
     function all(){
         $query = "SELECT * FROM artikel";

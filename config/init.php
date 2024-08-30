@@ -7,7 +7,7 @@
     require_once '../function/control.php';
     require_once '../function/artikel.php';
     require_once '../function/kategori.php';
-    require_once '../function/komentar.php';
+    // require_once '../function/komentar.php';
     require_once '../function/auth.php';
 
     if(isset($_SESSION['email'])) {
